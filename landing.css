@@ -79,12 +79,104 @@ nav a:hover{opacity:.65}
 .problem-list p{margin:7px 0 0;color:#c8d1da}
 
 .gallery-section{background:#f7f8f6}
-.section-head{max-width:760px;margin-bottom:50px}
-.section-head>p:last-child{margin:15px 0 0;color:var(--muted)}
-.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.gallery-item{margin:0;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px}
-.gallery-item img{width:100%;height:330px;object-fit:contain;object-position:top center}
 
+.section-head{
+  max-width:760px;
+  margin-bottom:50px
+}
+
+.section-head>p:last-child{
+  margin:15px 0 0;
+  color:var(--muted)
+}
+
+/* =========================================================
+   CARRUSEL DE CAPTURAS
+========================================================= */
+
+.gallery-carousel{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  width:100%;
+}
+
+.gallery-track{
+  display:flex;
+  gap:20px;
+  width:100%;
+  overflow:hidden;
+  scroll-behavior:smooth;
+}
+
+.gallery-slide{
+  flex:0 0 calc((100% - 40px) / 3);
+  margin:0;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fff;
+  padding:10px;
+  cursor:pointer;
+}
+
+
+
+.gallery-caption{
+  padding:12px 6px 4px;
+  text-align:center;
+}
+
+.gallery-caption span{
+  display:block;
+  color:var(--green);
+  font-size:11px;
+  font-weight:800;
+}
+
+.gallery-caption h3{
+  margin:5px 0 4px;
+  color:var(--navy);
+  font-size:18px;
+}
+
+.gallery-caption p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.45;
+}
+
+.gallery-slide img{
+  display:block;
+  width:100%;
+  height:420px;
+  object-fit:contain;
+  object-position:top center;
+  background:#fff;
+}
+
+.gallery-arrow{
+  flex:0 0 44px;
+  width:44px;
+  height:44px;
+  border:0;
+  border-radius:50%;
+  background:var(--navy);
+  color:#fff;
+  font-size:24px;
+  line-height:1;
+  cursor:pointer;
+  z-index:2;
+}
+
+.gallery-counter{
+  margin-top:16px;
+  text-align:center;
+  color:var(--muted);
+  font-size:14px;
+}
 .data-grid{display:grid;grid-template-columns:1fr 1fr;gap:90px}
 .data-copy{font-size:21px;color:var(--muted);line-height:1.45}
 .data-copy p{margin:0 0 25px}
@@ -122,7 +214,13 @@ nav a:hover{opacity:.65}
   }
   .hero-grid{padding:60px 0}
   .product-grid{grid-template-columns:repeat(2,1fr)}
-  .gallery{grid-template-columns:repeat(3,1fr)}
+  .gallery-carousel{
+    width:100%;
+  }
+
+  .gallery-slide{
+    flex-basis:calc((100% - 20px) / 2);
+  }  
   .steps{grid-template-columns:repeat(2,1fr)}
   .audience{grid-template-columns:repeat(2,1fr)}
   .trust-inner{
@@ -300,13 +398,28 @@ nav a:hover{opacity:.65}
     overflow-x:hidden;
   }
 
-  .product-grid,.gallery,.steps,.audience{
+  .product-grid,.steps,.audience{
     width:100%;
     min-width:0;
     grid-template-columns:1fr;
   }
 
-  .product-image,.gallery-item{
+  .gallery-carousel{
+    width:100%;
+    min-width:0;
+  }
+
+  .gallery-track{
+    width:100%;
+    min-width:0;
+  }
+
+  .gallery-slide{
+    flex:0 0 100%;
+    min-width:0;
+  }
+
+  .product-image{
     min-width:0;
     max-width:100%;
   }
@@ -318,7 +431,7 @@ nav a:hover{opacity:.65}
     object-fit:contain;
   }
 
-  .gallery-item img{
+ .gallery-slide img{
     width:100%;
     max-width:100%;
     height:450px;
@@ -378,4 +491,122 @@ nav a:hover{opacity:.65}
     flex-direction:column;
     gap:10px;
   }
+}
+
+/* =========================================================
+   HERO — LOGO Y CAPTURA EN CONTENEDORES IGUALES
+========================================================= */
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.hero-gallery{
+  grid-column:1 / -1;
+  width:100%;
+  min-width:0;
+}
+
+.hero-copy,
+.hero-product {
+  width: 100%;
+  min-width: 0;
+}
+
+.hero-product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-product .phone-frame {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-product .phone-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-copy .hero-logo {
+  width: 100%;
+  max-width: none;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  display: block;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-copy .hero-logo {
+    max-width: 100%;
+  }
+
+  .hero-product .phone-frame {
+    width: 100%;
+  }
+
+}
+
+/* HERO — COMPOSICION CENTRADA */
+.hero-grid {
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.hero-copy {
+  width: 100%;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-copy .hero-logo {
+  width: 180px;
+  max-width: 180px;
+  aspect-ratio: auto;
+  margin: 0 auto;
+}
+
+.hero-copy .hero-lead,
+.hero-copy .hero-text {
+  width: 100%;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.hero-actions {
+  justify-content: center;
+}
+
+.hero-gallery {
+  grid-column: 1;
+  width: 100%;
+  min-width: 0;
 }
